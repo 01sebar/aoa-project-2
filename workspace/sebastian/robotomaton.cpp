@@ -39,6 +39,7 @@ int main() {
 // n: Count of stages
 // Output:
 // totalSprockets: final count of sprockets needed to construct robotomaton with given params
+// Complexity: O(nlgn) ?
 int robotomaton(stage* stages, int n) {
     // memoization data structure initialized with 0
     int sprocketsPerStep[n];
