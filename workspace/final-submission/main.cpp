@@ -105,6 +105,8 @@ int robotomatonInput(ifstream &inputFile) {
 int main() {
     // Creates stream to file destination
     ifstream inputFile("input.txt");
+    ofstream outFile;
+    outFile.open("output.txt");
     // Reads the file if it is opened succesfully
     if(inputFile.is_open()) {
         std::string numOfRobots;
@@ -126,11 +128,11 @@ int main() {
             getline(inputFile, typeOfRobot, char(13));
             if(typeOfRobot.compare("omnidroid") == 0) {
                 int totalSprockets = omnidroidsInput(inputFile);
-                cout << "Result: " << totalSprockets << endl;
+                outFile << totalSprockets << endl;
             } 
             else if(typeOfRobot.compare("robotomaton") == 0) {
                 int totalSprockets = robotomatonInput(inputFile);
-                cout << "Result: " << totalSprockets << endl;
+                outFile << totalSprockets << endl;
             } 
         }
         else if(numOfRobots.compare("2") == 0) {
@@ -142,18 +144,21 @@ int main() {
                 getline(inputFile, whiteSpace);
                 getline(inputFile, typeOfRobot, char(13));
                 int totalRobotomatonSprockets = robotomatonInput(inputFile);
-                cout << "Result: " << totalOmnidroidsSprockets << " " << totalRobotomatonSprockets << endl;
+                outFile << totalOmnidroidsSprockets << " " << totalRobotomatonSprockets << endl;
             } 
             else if(typeOfRobot.compare("robotomaton") == 0) {
                 int totalRobotomatonSprockets = robotomatonInput(inputFile);
                 getline(inputFile, whiteSpace);
                 getline(inputFile, typeOfRobot, char(13));
                 int totalOmnidroidsSprockets = omnidroidsInput(inputFile);
-                cout << "Result: " << totalRobotomatonSprockets << " " << totalOmnidroidsSprockets << endl;
+                outFile << totalRobotomatonSprockets << " " << totalOmnidroidsSprockets << endl;
             } 
         } 
     } 
     inputFile.close();
+    outFile.close();
+
+
 
     return 0;
 }
