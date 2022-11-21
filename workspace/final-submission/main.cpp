@@ -144,21 +144,19 @@ int main() {
                 getline(inputFile, whiteSpace);
                 getline(inputFile, typeOfRobot, char(13));
                 int totalRobotomatonSprockets = robotomatonInput(inputFile);
-                outFile << totalOmnidroidsSprockets << " " << totalRobotomatonSprockets << endl;
+                outFile << totalOmnidroidsSprockets << "\n" << totalRobotomatonSprockets << endl;
             } 
             else if(typeOfRobot.compare("robotomaton") == 0) {
                 int totalRobotomatonSprockets = robotomatonInput(inputFile);
                 getline(inputFile, whiteSpace);
                 getline(inputFile, typeOfRobot, char(13));
                 int totalOmnidroidsSprockets = omnidroidsInput(inputFile);
-                outFile << totalRobotomatonSprockets << " " << totalOmnidroidsSprockets << endl;
+                outFile << totalRobotomatonSprockets << "\n" << totalOmnidroidsSprockets << endl;
             } 
         } 
     } 
     inputFile.close();
     outFile.close();
-
-
 
     return 0;
 }
