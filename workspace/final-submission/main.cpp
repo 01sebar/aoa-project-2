@@ -30,7 +30,8 @@ int omnidroidsInput(ifstream &inputFile) {
     int numParts = stoi(numOfParts, nullptr, 10);
     int numDependencies = stoi(numOfDependencies, nullptr, 10);
     
-    part parts[numDependencies];
+    std::queue<part> partsQueue;
+    // part parts[numDependencies];
     int sprocketsPerPart[numParts];;
     int dependencyCount = 0;
     int partCount = 0;
@@ -56,8 +57,10 @@ int omnidroidsInput(ifstream &inputFile) {
         }
 
         // Parts that are build on dependencies: i is used in assembly of part j
-        parts[dependencyCount].dependencyPart = stoi(partI, nullptr, 10);
-        parts[dependencyCount].partToBuild = stoi(partJ, nullptr, 10);
+        part tempPart;
+        tempPart.dependencyPart = stoi(partI, nullptr, 10);
+        tempPart.partToBuild = stoi(partJ, nullptr, 10);
+        partsQueue.push(tempPart);
         dependencyCount++;
     }
 
@@ -69,7 +72,7 @@ int omnidroidsInput(ifstream &inputFile) {
         partCount++;
     }
 
-    int totalSprockets = omnidroids(parts, sprocketsPerPart, numParts, numDependencies);
+    int totalSprockets = omnidroids_wrapper(partsQueue, sprocketsPerPart, numParts);
     return totalSprockets;
 }
 

@@ -89,6 +89,7 @@ int omnidroids_wrapper(std::queue<part> partsStack, int* sprocketsPerPart, int n
     int* sprocketsPerPartRunningTotal = new int[n];
     omnidroids_recursive(partsStack, sprocketsPerPart, sprocketsPerPartRunningTotal);
     int totalSprockets = sprocketsPerPartRunningTotal[n - 1];
+    delete[] sprocketsPerPartRunningTotal;
     return totalSprockets;
 }
 

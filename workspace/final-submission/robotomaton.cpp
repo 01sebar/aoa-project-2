@@ -8,7 +8,7 @@
 // Complexity: O(nlgn)
 int robotomaton(stage* stages, int n) {
     // memoization data structure initialized with 0
-    int sprocketsPerStep[n] = {0};
+    int* sprocketsPerStep = new int[n];
     for (int i = 0; i < n; i++) {
         sprocketsPerStep[i] = stages[i].s;
         // based case for primitive part
