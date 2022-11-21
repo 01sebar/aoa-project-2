@@ -44,16 +44,3 @@ omnidroid
 3
 6
 ```
-
-or 
-
-```
-1
-
-robotomaton
-4
-3 0
-2 1
-10 1
-7 3
-```
