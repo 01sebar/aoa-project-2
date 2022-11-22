@@ -86,10 +86,9 @@ int main() {
 
 // Time complexity: O(m)
 int omnidroids_wrapper(std::queue<part> partsStack, int* sprocketsPerPart, int n) {
-    int* sprocketsPerPartRunningTotal = new int[n];
+    int sprocketsPerPartRunningTotal[n] = {0};
     omnidroids_recursive(partsStack, sprocketsPerPart, sprocketsPerPartRunningTotal);
     int totalSprockets = sprocketsPerPartRunningTotal[n - 1];
-    delete[] sprocketsPerPartRunningTotal;
     return totalSprockets;
 }
 
