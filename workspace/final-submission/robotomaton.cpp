@@ -6,21 +6,34 @@
 // Output:
 // totalSprockets: final count of sprockets needed to construct robotomaton with given params
 // Complexity: O(nlgn)
-int robotomaton(stage* stages, int n) {
-    // memoization data structure initialized with 0
-    int* sprocketsPerStep = new int[n];
-    for (int i = 0; i < n; i++) {
-        sprocketsPerStep[i] = stages[i].s;
-        // based case for primitive part
-        if(stages[i].p == 0) {
-            continue;
-        };
-        // iterate from right before current stage and iterate backwards (i - stages[i].p) times
-        for (int j = i - 1; j >= i - stages[i].p; j--) {
-            sprocketsPerStep[i] += sprocketsPerStep[j];
-        }
+int RecRobotomaton(stage* stages, int n, int sprocketsPerStep[]){
+    if (sprocketsPerStep[n] != -1) {
+        return sprocketsPerStep[n];
     }
-    // Get last item in sprocketsPerStep array
-    int totalSprockets = sprocketsPerStep[n - 1];
+    else if (stages[n].p = 0){
+        sprocketsPerStep[n] = stages[n].s;
+        return sprocketsPerStep[n];
+    }
+    else{
+        sprocketsPerStep[n] = stages[n].s;
+        int stage = stages[n-1].p;
+        for (int j = n - 1; stage != -1; j--){
+            sprocketsPerStep[n] = sprocketsPerStep[n] + RecRobotomaton(stages, j, sprocketsPerStep);
+            stage --;    
+        }
+
+        return sprocketsPerStep[n];
+    }
+}
+
+int robotomaton(stage* stages, int n) {
+    // Data Structure is initialized and all values are set to -1
+    int sprocketsPerStep[n] = {0};
+    for (int i = 0; i < n; i++) {
+        sprocketsPerStep[i] = -1;
+    }
+
+    int totalSprockets = RecRobotomaton(stages, n - 1 , sprocketsPerStep);
     return totalSprockets;
+
 }
