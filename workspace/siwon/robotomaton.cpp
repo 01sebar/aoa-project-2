@@ -6,22 +6,33 @@
 // Output:
 // totalSprockets: final count of sprockets needed to construct robotomaton with given params
 // Complexity: O(nlgn)
-int robotomaton(stage* stages, int n) {
-    // memoization data structure initialized with 0
+int robotomaton_wrapper(stage* stages, int n) {
+    // Data Structure is initialized and all values are set to -1
     int sprocketsPerStep[n] = {0};
     for (int i = 0; i < n; i++) {
-        sprocketsPerStep[i] = stages[i].s;
-        // based case for primitive part
-        if(stages[i].p == 0) {
-            // std::cout << "stage " << i << " does not have previous steps involved" << std::endl;
-            continue;
-        };
-        // iterate from right before current stage and iterate backwards (i - stages[i].p) times
-        for (int j = i - 1; j >= i - stages[i].p; j--) {
-            sprocketsPerStep[i] += sprocketsPerStep[j];
-        }
+        sprocketsPerStep[i] = -1;
     }
-    // Get last item in sprocketsPerStep array
-    int totalSprockets = sprocketsPerStep[n - 1];
+
+    int totalSprockets = robotomaton_recursive(stages, n - 1 , sprocketsPerStep);
     return totalSprockets;
+}
+
+int robotomaton_recursive(stage* stages, int n, int sprocketsPerStep[]) {
+    if (sprocketsPerStep[n] != -1) {
+        return sprocketsPerStep[n];
+    }
+    else if (stages[n].p = 0){
+        sprocketsPerStep[n] = stages[n].s;
+        return sprocketsPerStep[n];
+    }
+    else{
+        sprocketsPerStep[n] = stages[n].s;
+        int stage = stages[n-1].p;
+        for (int j = n - 1; stage != -1; j--){
+            sprocketsPerStep[n] = sprocketsPerStep[n] + robotomaton_recursive(stages, j, sprocketsPerStep);
+            stage --;    
+        }
+
+        return sprocketsPerStep[n];
+    }
 }

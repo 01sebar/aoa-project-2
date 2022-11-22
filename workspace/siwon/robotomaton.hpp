@@ -8,6 +8,7 @@ struct stage {
     int p; // previous stages needed
 };
 
-int robotomaton(stage* stages, int n);
+int robotomaton_wrapper(stage* stages, int n);
+int robotomaton_recursive(stage* stages, int n, int sprocketsPerStep[]);
 
 #endif

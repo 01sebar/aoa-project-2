@@ -6,7 +6,7 @@
 // Output:
 // totalSprockets: final count of sprockets needed to construct robotomaton with given params
 // Complexity: O(nlgn)
-int RecRobotomaton(stage* stages, int n, int sprocketsPerStep[]){
+int RecRobotomaton(stage* stages, int n, int sprocketsPerStep[]) {
     if (sprocketsPerStep[n] != -1) {
         return sprocketsPerStep[n];
     }

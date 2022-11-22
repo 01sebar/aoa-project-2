@@ -9,5 +9,6 @@ struct stage {
 };
 
 int robotomaton(stage* stages, int n);
+int RecRobotomaton(stage* stages, int n, int sprocketsPerStep[]);
 
 #endif
