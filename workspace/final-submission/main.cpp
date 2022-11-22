@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <fstream>
+#include <cstring>
 
 #include "omnidroids.hpp"
 #include "robotomaton.hpp"
@@ -11,56 +12,53 @@ using namespace std;
 
 // Function to input the information about omniroids 
 int omnidroidsInput(ifstream &inputFile) {
-    cout << "omnidroids" << endl;
     string numInput;
     string numOfParts;
     string numOfDependencies;
+    string whitespace;
 
     getline(inputFile, numInput, char(13));
+    int inputLength = numInput.length();
 
     int i;
-    for(i=0; numInput[i]!=' '; i++) {
+    for(i=1; numInput[i]!=' '; i++) {
         numOfParts = numOfParts + numInput[i];
     } 
-    for(; numInput[i]!='\n'; i++) {
+    i++;
+    for(; i<inputLength; i++) {
         numOfDependencies = numOfDependencies + numInput[i];
     }
 
-    
     int numParts = stoi(numOfParts, nullptr, 10);
     int numDependencies = stoi(numOfDependencies, nullptr, 10);
-    std::cout << "numParts: " << numParts << std::endl;
-    std::cout << "numDependencies: " << numDependencies << std::endl;
+
     std::queue<part> partsQueue;
-    // part parts[numDependencies];
-    int sprocketsPerPart[numParts];;
+    int sprocketsPerPart[numParts];
     int dependencyCount = 0;
     int partCount = 0;
 
     // Creates list of parts that need other parts to be build
     while(dependencyCount != numDependencies) {
-        std::cout << "dependencyCount: " << dependencyCount << std::endl;
-        std::cout << "numDependencies: " << numDependencies << std::endl;
         string input;
         string partI;
         string partJ;
-        string whitespace;
 
-        // Gets one line with 2 numbers
-        getline(inputFile, input , char(13));
         getline(inputFile, whitespace);
 
-        // Identifies i and j
+        // Gets one line with 2 numbers
+        getline(inputFile, input, char(13));
+        int lineLength = numInput.length();
+
+        // store the two inputs i and j separated by " " into partI and partJ, respectively
         int j;
         for(j=0; input[j]!=' '; j++) {
             partI = partI + input[j];
         } 
-        std::cout << partI << std::endl;
-        for(; input[j]!='\n'; j++) {
+        j++;
+        for(; j<lineLength; j++) {
             partJ = partJ + input[j];
         }
-        std::cout << partJ << std::endl;
-
+        
         // Parts that are build on dependencies: i is used in assembly of part j
         part tempPart;
         tempPart.dependencyPart = stoi(partI, nullptr, 10);
@@ -72,10 +70,12 @@ int omnidroidsInput(ifstream &inputFile) {
     //Creates a list of sprockets used per part
     while(partCount != numParts) {
         string numOfSprocketsUsed;
-        getline(inputFile, numOfSprocketsUsed);
+        getline(inputFile, whitespace);
+        getline(inputFile, numOfSprocketsUsed, char(13));
         sprocketsPerPart[partCount] = stoi(numOfSprocketsUsed, nullptr, 10);
         partCount++;
     }
+    getline(inputFile, whitespace);
 
     int totalSprockets = omnidroids_wrapper(partsQueue, sprocketsPerPart, numParts);
     return totalSprockets;
@@ -83,7 +83,6 @@ int omnidroidsInput(ifstream &inputFile) {
 
 // Function to input the information about robotomaton
 int robotomatonInput(ifstream &inputFile) {
-    cout << "robotomaton" << endl;
     string numOfStages;
     string whitespace;
 
@@ -97,21 +96,27 @@ int robotomatonInput(ifstream &inputFile) {
         string sprockets;
         string prevStages;
 
+        getline(inputFile, whitespace);
         getline(inputFile, input, char(13));
+        int lineLength = input.length();
+
+        // store the two inputs i and j separated by " " into partI and partJ, respectively
         int i;
         for(i=0; input[i]!=' '; i++) {
             sprockets = sprockets + input[i];
         } 
-        for(; input[i]!='\n'; i++) {
+        i++;
+        for(; i<lineLength; i++) {
             prevStages = prevStages + input[i];
         }
+
         stages[count].s = stoi(sprockets, nullptr, 10);
         stages[count].p = stoi(prevStages, nullptr, 10);
         count++;
     }
     getline(inputFile, whitespace);
 
-    int totalSprockets = robotomaton(stages, numStages);
+    int totalSprockets = robotomaton_wrapper(stages, numStages);
     return totalSprockets;
 }
 
@@ -133,16 +138,13 @@ int main() {
 
         // Depending on how many robots are specified the input differs
         if(numRobots == 0) {
-            cout << "Please enter 1 or 2 to assemble robots."<< endl;
+            cout << "Please assemble at least 1 robot."<< endl;
             return 0;
         } 
 
         for(int i=0; i<numRobots; i++) {
-            cout << i << endl;
-
             getline(inputFile, whiteSpace);
             getline(inputFile, typeOfRobot, char(13));
-            cout << typeOfRobot << endl;
             if(typeOfRobot.compare("omnidroid") == 0) {
                 int totalSprockets = omnidroidsInput(inputFile);
                 outFile << totalSprockets << endl;

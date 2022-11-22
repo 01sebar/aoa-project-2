@@ -110,8 +110,6 @@ int robotomatonInput(ifstream &inputFile) {
             prevStages = prevStages + input[i];
         }
 
-        cout << sprockets << " "<< prevStages << endl;
-
         stages[count].s = stoi(sprockets, nullptr, 10);
         stages[count].p = stoi(prevStages, nullptr, 10);
         count++;
@@ -119,7 +117,6 @@ int robotomatonInput(ifstream &inputFile) {
     getline(inputFile, whitespace);
 
     int totalSprockets = robotomaton_wrapper(stages, numStages);
-    cout << "Total: " << totalSprockets << endl;
     return totalSprockets;
 }
 
@@ -141,7 +138,7 @@ int main() {
 
         // Depending on how many robots are specified the input differs
         if(numRobots == 0) {
-            cout << "Please enter 1 or 2 to assemble robots."<< endl;
+            cout << "Please assemble at least 1 robot."<< endl;
             return 0;
         } 
 
