@@ -19,11 +19,13 @@ int robotomaton_wrapper(stage* stages, int n) {
 }
 
 int robotomaton_recursive(stage* stages, int n, int* sprocketsPerStep) {
-    if(sprocketsPerStep[n] != -1) {return sprocketsPerStep[n];
+    if(sprocketsPerStep[n] != -1) {
+        return sprocketsPerStep[n];
     }
     // based case for primitive part
     if(stages[n].p == 0) {
-        sprocketsPerStep[n] = stages[n].s;return sprocketsPerStep[n];
+        sprocketsPerStep[n] = stages[n].s;
+        return sprocketsPerStep[n];
     } else {
         sprocketsPerStep[n] = stages[n].s;
         int prevStage = stages[n].p;
