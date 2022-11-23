@@ -10,16 +10,9 @@ To run the program:
 - In addition, you could modify that input file with other inputs. 
 - run `./robot` to see the output file.
 
-Input file must look like this:
+input.txt file must look like this:
 ```
-2
-
-robotomaton
 4
-3 0
-2 1
-10 1
-7 3
 
 omnidroid
 8 12
@@ -43,4 +36,40 @@ omnidroid
 5
 3
 6
+
+robotomaton
+4
+3 0
+2 1
+10 1
+7 3
+
+omnidroid
+5 5
+0 1
+0 1
+1 4
+2 3
+3 4
+2
+23
+11
+11
+2
+
+robotomaton
+5
+3 0
+11 0
+31 1
+29 2
+5 4
+```
+
+Expected Output written in Output.txt file:
+```
+100
+30
+51
+143
 ```
